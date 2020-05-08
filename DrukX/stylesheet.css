@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Druk XCond Super';
+    src: url('DrukXCond-Super.woff2') format('woff2'),
+        url('DrukXCond-Super.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+

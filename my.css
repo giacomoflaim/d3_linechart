@@ -1,0 +1,87 @@
+body{
+	background-color: lightblue;
+	width: 100%;
+}
+@font-face {
+    font-family: 'Circular Std Bold';
+    src: url('./CircularStd-Book/CircularStd-Bold.woff2') format('woff2'),
+        url('./CircularStd-Book/CircularStd-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circular Std Bold';
+    src: url('./CircularStd-Book/CircularStd-Book.woff2') format('woff2'),
+        url('./CircularStd-Book/CircularStd-Book.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: 'Druk XCond Super';
+    src: url('./DrukX/DrukXCond-Super.woff2') format('woff2'),
+        url('./DrukX/DrukXCond-Super.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+.box{
+	background-color: #343449;
+	width: 1080px;
+	height: 2265px;
+	margin: 30px;
+
+}
+
+h1{
+	font-family: 'Druk XCond Super',serif;
+    font-weight: 900;
+    font-size: 240px;
+    line-height: 240px;
+    padding-top: 8px; 
+    font-style: normal;
+    color: #FFDD91;
+}
+
+
+h2 {
+    font-family: 'Circular Std Bold',serif;
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase; 
+    font-style: normal;
+    color: #fff;
+}
+
+.axis text{
+    fill: #A3A3A3;
+    font-family: 'Circular Std',serif;
+    font-weight: 500;
+    font-size: 30px;
+    }
+
+.grid line{
+    stroke: #fff;
+}
+
+.grid path{
+    stroke: transparent;
+}
+
+
+#yAxis line{
+    stroke: none;
+}
+
+.axis line, .axis path {
+    stroke: transparent;
+}
+
+
+
