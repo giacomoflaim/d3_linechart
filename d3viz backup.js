@@ -1,22 +1,12 @@
 
 
-			var width = 1204;
-			var height = 2523;
-
-
-			
-			
-			var marginLatSx = 258;
-			var	marginLatDx = 200;
-			var marginTop= 905;
-			var marginBottom = 456;
-
-
-			var widthGrid = 767;
+			var width = 920;
+			var height = 1235;
+			var marginLat = 206;
 			var margin = 10;
 			var marginC = 25;
 			var marginAx = 196;
-			var marginGrid = 258;
+			var marginGrid = 206;
 			var rValues = [7,25];
 			var circle;
 			var Numero;
@@ -24,21 +14,22 @@
 			
 
 
-			
+			var maxHeight = 3000;
 
 			var svg = d3.select('#chart')
 					.append('svg')
 					.attr('width', width +'px')
 					.attr('height', height + 'px')
-					.style('background-color','#343449')
+					.attr("xmlns", "http://www.w3.org/2000/svg");
+
 			
 			var parseTime = d3.timeParse("%d-%b-%y");
 
 			var x = d3.scaleTime()
-				.range([marginLatSx, width-marginLatDx]);
+				.range([marginLat, width-marginC]);
 			
 			var y = d3.scaleLinear()
-				.range([height-marginBottom, marginTop]);
+				.range([height - margin, margin]);
 
 			var radius = d3.scaleOrdinal()
 				.range([rValues[0],rValues[1]]);
@@ -57,14 +48,11 @@
 			d3.csv('TotaleD3.csv').then(function(data){
 
 
-				
+				/*LastVal = d3.select('Lombardia', function(d){
+				return d.Lombardia[d.Lombardia.length - 1];
+				});*/
 
-
-
-
-
-
-				
+				//console.log(data.columns.slice(0,2));
 
 				var colonnaRegione = data.map(function(d) {
 					  return d.Lombardia					  
@@ -94,7 +82,8 @@
 
   				color.domain([1,2]);
 
-
+				
+				
 
   				// AXIS 
   				
@@ -111,60 +100,14 @@
 					.attr('text-anchor','end')
 
 
-
-
-				svg.append('text')
-					.attr('x','602')
-					.attr('y','511')
-					.attr('text-anchor','middle')
-					.text('Lombardia')
-					//style					
-					.style('fill','#fff')
-					.style('font-family','Circular Std Bold, serif')
-					.style('font-size','40px')
-					.style('font-weight','700')
-					.style('letter-spacing','1px')
-					.style('text-transform','uppercase')
-
-
-				svg.append('text')
-					.attr('x','602')
-					.attr('y','760')
-					.attr('text-anchor','middle')
-					.text(datoSettimanale)
-					//style					
-					.style('fill','#FFDD91')
-					.style('font-family','Druk XCond Super ,serif')
-					.style('font-size','240px')
-					.style('font-weight','900')
-					.style('line-height','240px')
-					
-
-				svg.append('text')
-					.attr('x','602')
-					.attr('y','818')
-					.attr('text-anchor','middle')
-					.text(delta)
-					//style					
-					.style('fill','#fff')
-					.style('font-family','Circular Std Bold, serif')
-					.style('font-size','40px')
-					.style('font-weight','700')
-					.style('letter-spacing','1px')
-					
-    
-
-
 				
 
 
 				svg.append("g")			
 					.attr("class", "grid")
-
 					.attr('transform', 'translate('+ (marginGrid)+',0)') 					
 					.call(make_y_gridlines()
-
-						.tickSize(-widthGrid)
+						.tickSize(-width)
 						.tickFormat("")	)
 
 				// add the Y Axis
@@ -199,17 +142,13 @@
 					    .attr("fill", function(d)
 					    	{return color(d.dimensione)})
 
-				//document.getElementById("numero").innerHTML = datoSettimanale;
-				//document.getElementById("delta").innerHTML = delta;
+				document.getElementById("numero").innerHTML = datoSettimanale;
+				document.getElementById("delta").innerHTML = delta;
 
 
 			})
 
-			d3.select("#download")
-					.on('click', function(){
-					    // Get the d3js SVG element and save using saveSvgAsPng.js
-					    saveSvgAsPng(document.getElementsByTagName("chart")[0], "plot.png", {scale: 2, backgroundColor: "#FFFFFF"});
-					})
+
 			
 
 

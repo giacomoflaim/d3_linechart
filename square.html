@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>D3.js prova-1</title>
+	
+	
+  <meta charset="utf-8">
+        <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+        <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+	    <script src="https://d3js.org/d3.v5.min.js"></script>
+	
+	<style>
+    
+    body{
+	background-color: lightblue;
+	width: 100%;
+    }
+    @font-face {
+        font-family: 'Circular Std Bold';
+        src: url('./CircularStd-Book/CircularStd-Bold.woff2') format('woff2'),
+            url('./CircularStd-Book/CircularStd-Bold.woff') format('woff');
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Circular Std Bold';
+        src: url('./CircularStd-Book/CircularStd-Book.woff2') format('woff2'),
+            url('./CircularStd-Book/CircularStd-Book.woff') format('woff');
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Circular Std Bold';
+        src: url('./CircularStd-Book/CircularSpotifyText-Light.woff2') format('woff2'),
+            url('./CircularStd-Book/CircularSpotifyText-Light.woff') format('woff');
+        font-weight: 300;
+        font-style: normal;
+    }
+
+
+    @font-face {
+        font-family: 'Druk XCond Super';
+        src: url('./Druk XCond Super/Druk XCond Super.woff2') format('woff2'),
+            url('./Druk XCond Super/Druk XCond Super.woff') format('woff'),
+            url("/Users/giacomo/Library/Fonts/Druk XCond Super.otf") format("opentype"), /* Open Type Font */
+            url("./Druk XCond Super/Druk XCond Super.svg") format("svg"), /* Legacy iOS */
+            url("./Druk XCond Super/Druk XCond Super.ttf") format("truetype"); /* Safari, Android, iOS */
+        font-weight: normal;
+        font-style: normal;
+    }
+
+
+    .box{	
+	    margin: 30px;
+        }
+
+    h1{
+        font-family: 'Druk XCond Super',serif;
+        font-weight: 900;
+        font-size: 240px;
+        line-height: 240px;
+        padding-top: 8px; 
+        font-style: normal;
+        color: #FFDD91;
+    }
+
+    h2 {
+        font-family: 'Circular Std Bold',serif;
+        font-weight: 700;
+        font-size: 40px;
+        letter-spacing: 1px;
+        text-transform: uppercase; 
+        font-style: normal;
+        color: #fff;
+    }
+
+    .axis text{
+        fill: #A3A3A3;
+        font-family: 'Circular Std',serif;
+        font-weight: 500;
+        font-size: 30px;
+        }
+
+    .grid line{
+        stroke: #fff;
+    }
+
+    .grid path{
+        stroke: transparent;
+    }
+
+
+    #yAxis line{
+        stroke: none;
+    }
+
+    .axis line, .axis path {
+        stroke: transparent;
+    }
+
+    </style>
+	
+	
+	
+
+	
+	</head>
+	
+	<body>
+        <div>
+            
+        </div>
+						
+		<div>
+		    <button id='saveButton'>Export my D3 visualization to PNG</button>			
+			<div id= "chart" style="margin: 80px 40px"></div>	
+		</div>
+		
+		
+		
+    </body>	
+
+    	
+		
+		
+    <script>
+        var width = 1080;
+        var height = 1080;
+        
+        var svg = d3.select('#chart')
+					.append('svg')
+					.attr('width', width +'px')
+					.attr('height', height + 'px')
+					.style('background-color','#343449');
+
+        var formatComma = d3.format(",");
+			
+		var parseTime = d3.timeParse("%d-%b-%y");
+        
+        d3.csv('TotaleD3.csv').then(function(data){
+            
+				var colonnaRegione = data.map(function(d) {
+					  return d.Lombardia					  
+					});
+
+				var datoSettimanale = colonnaRegione[colonnaRegione.length-1];
+            
+            
+        svg.append('text')
+					.attr('x','540')
+					.attr('y','60')
+					.attr('text-anchor','middle')
+					.text('il bollettino n.'+datoSettimanale)
+					//style					
+					.style('fill','#FFDD91')
+					.style('font-family','Circular Std Bold, serif')
+					.style('font-size','26px')
+					.style('font-weight','400')
+					.style('letter-spacing','8px')
+					.style('text-transform','uppercase')
+                
+                svg.append('rect')
+                    .attr('x','0')
+                    .attr('y', '100')
+                    .attr("width", 1080)
+                    .attr("height", 2)
+                    .style('fill','#FFDD91');
+                
+                svg.append('text')
+					.attr('x','540')
+					.attr('y','761')
+					.attr('text-anchor','middle')
+					.text(formatComma(datoSettimanale))
+					//style					
+					.style('fill','#FFDD91')
+					.style('font-family','Druk XCond Super ,serif')
+					.style('font-size','600')
+					.style('font-weight','400')
+					.style('letter-spacing','0px')
+					.style('text-transform','uppercase')
+                
+                svg.append('rect')
+                    .attr('x','0')
+                    .attr('y', '975')
+                    .attr("width", 1080)
+                    .attr("height", 2)
+                    .style('fill','#FFDD91');
+                
+                
+                svg.append('text')
+					.attr('x','540')
+					.attr('y','1035')
+					.attr('text-anchor','middle')
+					.text('i contagiati totali del '+datoSettimanale)
+					//style					
+					.style('fill','#FFDD91')
+					.style('font-family','Circular Std Bold, serif')
+					.style('font-size','26px')
+					.style('font-weight','400')
+					.style('letter-spacing','8px')
+					.style('text-transform','uppercase')
+            
+            })
+        
+        // Set-up the export button
+d3.select('#saveButton').on('click', function(){
+	var svgString = getSVGString(svg.node());
+	svgString2Image( svgString, 2*width, 2*height, 'png', save ); // passes Blob and filesize String to the callback
+
+	function save( dataBlob, filesize ){
+		saveAs( dataBlob, 'D3 vis exported to PNG.png' ); // FileSaver.js function
+	}
+});
+
+// Below are the functions that handle actual exporting:
+// getSVGString ( svgNode ) and svgString2Image( svgString, width, height, format, callback )
+function getSVGString( svgNode ) {
+	svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
+	var cssStyleText = getCSSStyles( svgNode );
+	appendCSS( cssStyleText, svgNode );
+
+	var serializer = new XMLSerializer();
+	var svgString = serializer.serializeToString(svgNode);
+	svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
+	svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
+
+	return svgString;
+
+	function getCSSStyles( parentElement ) {
+		var selectorTextArr = [];
+
+		// Add Parent element Id and Classes to the list
+		selectorTextArr.push( '#'+parentElement.id );
+		for (var c = 0; c < parentElement.classList.length; c++)
+				if ( !contains('.'+parentElement.classList[c], selectorTextArr) )
+					selectorTextArr.push( '.'+parentElement.classList[c] );
+
+		// Add Children element Ids and Classes to the list
+		var nodes = parentElement.getElementsByTagName("*");
+		for (var i = 0; i < nodes.length; i++) {
+			var id = nodes[i].id;
+			if ( !contains('#'+id, selectorTextArr) )
+				selectorTextArr.push( '#'+id );
+
+			var classes = nodes[i].classList;
+			for (var c = 0; c < classes.length; c++)
+				if ( !contains('.'+classes[c], selectorTextArr) )
+					selectorTextArr.push( '.'+classes[c] );
+		}
+
+		// Extract CSS Rules
+		var extractedCSSText = "";
+		for (var i = 0; i < document.styleSheets.length; i++) {
+			var s = document.styleSheets[i];
+			
+			try {
+			    if(!s.cssRules) continue;
+			} catch( e ) {
+		    		if(e.name !== 'SecurityError') throw e; // for Firefox
+		    		continue;
+		    	}
+
+			var cssRules = s.cssRules;
+			for (var r = 0; r < cssRules.length; r++) {
+				if ( contains( cssRules[r].selectorText, selectorTextArr ) )
+					extractedCSSText += cssRules[r].cssText;
+			}
+		}
+		
+
+		return extractedCSSText;
+
+		function contains(str,arr) {
+			return arr.indexOf( str ) === -1 ? false : true;
+		}
+
+	}
+
+	function appendCSS( cssText, element ) {
+		var styleElement = document.createElement("style");
+		styleElement.setAttribute("type","text/css"); 
+		styleElement.innerHTML = cssText;
+		var refNode = element.hasChildNodes() ? element.children[0] : null;
+		element.insertBefore( styleElement, refNode );
+	}
+}
+
+
+function svgString2Image( svgString, width, height, format, callback ) {
+	var format = format ? format : 'png';
+
+	var imgsrc = 'data:image/svg+xml;base64,'+ btoa( unescape( encodeURIComponent( svgString ) ) ); // Convert SVG string to data URL
+
+	var canvas = document.createElement("canvas");
+	var context = canvas.getContext("2d");
+
+	canvas.width = width;
+	canvas.height = height;
+
+	var image = new Image();
+	image.onload = function() {
+		context.clearRect ( 0, 0, width, height );
+		context.drawImage(image, 0, 0, width, height);
+
+		canvas.toBlob( function(blob) {
+			var filesize = Math.round( blob.length/1024 ) + ' KB';
+			if ( callback ) callback( blob, filesize );
+		});
+
+		
+	};
+
+	image.src = imgsrc;
+}
+        
+        
+        
+    </script>
+		
+		
+		
+
+		
+	
+	<!--<script src="d3-square.js"></script>-->
+	
+	
+</html>
